@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demagnetization Factor Calculator - Magnetic Analysis Tool | Demagcal</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Demagnetization Factor Calculator - Magnetic Analysis Tool | Demagcal">
+    <meta name="description" content="Calculate demagnetization factors for magnetic nanostructures. Supports rectangular prisms, cylinders, spheres, thin films, and infinite rods. Based on Stoner-Wohlfarth theory with accurate analytical formulas.">
+    <meta name="keywords" content="demagnetization factor, magnetic calculator, Stoner-Wohlfarth, magnetic anisotropy, nanomagnetism, ferromagnetic, coercive field, shape anisotropy, magnetic nanoparticles, Aharoni formula">
+    <meta name="author" content="Afan">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Demagnetization Factor Calculator - Magnetic Analysis Tool">
+    <meta property="og:description" content="Professional tool for calculating demagnetization factors and magnetic properties of nanostructures. Accurate analytical formulas for various geometries.">
+    <meta property="og:site_name" content="Demagcal">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="Demagnetization Factor Calculator">
+    <meta property="twitter:description" content="Calculate demagnetization factors for magnetic nanostructures with professional accuracy.">
+    
+    <!-- Canonical URL - Update when deployed -->
+    <!-- <link rel="canonical" href=""> -->
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Demagcal - Demagnetization Factor Calculator",
+      "url": "",
+      "description": "Professional magnetic analysis tool for calculating demagnetization factors of various geometries including rectangular prisms, cylinders, spheres, thin films, and infinite rods.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Afan",
+        "email": "ata159@sfu.ca"
+      },
+      "datePublished": "2025-07-01",
+      "dateModified": "2025-07-24",
+      "keywords": "demagnetization factor calculator, magnetic analysis, nanomagnetism, Stoner-Wohlfarth theory",
+      "educationalUse": ["Research", "Academic", "Professional"],
+      "potentialAction": {
+        "@type": "UseAction",
+        "target": {
+          "@type": "EntryPoint",
+          "@id": "",
+          "urlTemplate": "",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
+      "citation": [
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Demagnetizing factors for rectangular ferromagnetic prisms",
+          "author": "Amikam Aharoni",
+          "datePublished": "1998",
+          "url": "https://doi.org/10.1063/1.367113"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Ballistic Demagnetizing Factor in Uniformly Magnetized Cylinders",
+          "author": "R. I. Joseph",
+          "datePublished": "1966",
+          "url": "https://doi.org/10.1063/1.1708110"
+        }
+      ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Additional SEO -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <meta name="theme-color" content="#6366f1">
+    
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            menuOptions: {
+                settings: {
+                    explorer: false,
+                    zoom: 'NoZoom',
+                    zscale: '200%'
+                }
+            }
+        },
+        startup: {
+            ready() {
+                MathJax.startup.defaultReady();
+                console.log('MathJax ready');
+            }
+        },
+        loader: {
+            load: ['input/tex', 'output/chtml']
+        }
+    };
+    </script>
+    <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <div class="container">
+        <div class="header">
+            <h1 id="page-title">Demagnetization Calculator - Circular Cylinder</h1>
+        </div>
+
+        <div class="main-layout" id="main-content">
+            <div class="main-content-grid">
+                <div class="input-sidebar">
+                
+                <div class="input-group geometry-selection-compact">
+                    <label for="geometry-selector">Geometry Type:</label>
+                    <select id="geometry-selector" onchange="changeGeometry(this.value)" class="geometry-dropdown-compact">
+                        <option value="cylinder">1. Circular Cylinder</option>
+                        <option value="prism">2. Rectangular Prism</option>
+                        <option value="sphere">3. Sphere</option>
+                        <option value="thin-film">4. Thin Film</option>
+                        <option value="infinite-rod">5. Infinite Rod</option>
+                    </select>
+                    <small>Calculation method selection</small>
+                </div>
+
+                
+                <div class="input-group">
+                    <label for="ms-value">Saturation Magnetization ($M_s$):</label>
+                    <input type="number" id="ms-value" value="1000" step="1" min="1" maxlength="10" placeholder="e.g., 1600 for Fe">
+                    <small>Units: kA/m</small>
+                </div>
+                
+                <div class="input-group">
+                    <label for="ku-value">Uniaxial Anisotropy ($K_u$):</label>
+                    <input type="number" id="ku-value" value="0.8" step="0.1" maxlength="10" placeholder="e.g., 0.5 for Fe">
+                    <small>Units: MJ/m³</small>
+                </div>
+                
+                <div class="input-group">
+                    <label>Crystalline Easy Axis Direction:</label>
+                    <div class="radio-button-group">
+                        <label class="radio-option">
+                            <input type="radio" name="easy-axis" value="out-of-plane" checked onchange="updateEasyAxisDirection()">
+                            <span class="radio-label">
+                                <span class="radio-icon">⊥</span>
+                                Out-of-plane
+                            </span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="easy-axis" value="in-plane" onchange="updateEasyAxisDirection()">
+                            <span class="radio-label">
+                                <span class="radio-icon">∥</span>
+                                In-plane
+                            </span>
+                        </label>
+                    </div>
+                    <small id="easy-axis-description">Direction of magnetocrystalline easy axis</small>
+                </div>
+                
+                <div class="input-group" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                    <label for="show-advanced">Advanced Options:</label>
+                    <div class="toggle-container">
+                        <label class="toggle-switch" style="width: 60px; height: 28px;">
+                            <input type="checkbox" id="show-advanced" onchange="toggleAdvancedOptions()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span style="margin-left: 10px; font-size: 14px; color: #64748b;">
+                            Show all parameters and properties
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="advanced-settings" style="display: none;">
+                    <div class="input-group">
+                        <label for="temperature-value">Temperature ($T$):</label>
+                        <input type="number" id="temperature-value" value="300" step="1" min="0.01" maxlength="10" placeholder="e.g., 300 K">
+                        <small>Units: K</small>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="exchange-value">Exchange Stiffness ($A_{ex}$):</label>
+                        <input type="number" id="exchange-value" value="15" step="0.1" min="0.01" maxlength="10" placeholder="e.g., 15 for CoFeB">
+                        <small>Units: pJ/m</small>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="calculator-main" role="main" aria-label="Calculation results">
+                <div class="calculator-section geometry-calculator">
+                
+                <div class="geometry-content">
+                    <div class="geometry-panel" id="cylinder-panel">
+                        <div class="geometry-inputs">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                                <div class="input-group">
+                                    <label for="cylinder-thickness">Thickness [nm]:</label>
+                                    <input type="number" id="cylinder-thickness" value="2" step="0.1" min="0.1" maxlength="10">
+                                    <small>Height along cylinder axis (z-direction)</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="cylinder-diameter">Diameter [nm]:</label>
+                                    <input type="number" id="cylinder-diameter" value="30" step="0.1" min="0.1" maxlength="10">
+                                    <small>Circular cross-section (x-y plane)</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result" id="cylinder-result">Enter dimensions and calculate</div>
+                        <div class="formula-source">
+                            <small style="color: #64748b; font-size: 0.75rem;">
+                                Formula source: <a href="https://doi.org/10.1063/1.1708110" target="_blank" style="color: #6366f1; text-decoration: none;">R. I. Joseph, J. Appl. Phys. 37, 4639–4643 (1966)</a>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="geometry-panel" id="prism-panel">
+                        <div class="geometry-inputs">
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                                <div class="input-group">
+                                    <label for="prism-a">Length (a) [nm]:</label>
+                                    <input type="number" id="prism-a" value="20" step="0.1" min="0.1" maxlength="10">
+                                    <small>Direction along x-axis</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="prism-b">Width (b) [nm]:</label>
+                                    <input type="number" id="prism-b" value="20" step="0.1" min="0.1" maxlength="10">
+                                    <small>Direction along y-axis</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="prism-c">Height (c) [nm]:</label>
+                                    <input type="number" id="prism-c" value="2" step="0.1" min="0.1" maxlength="10">
+                                    <small>Direction along z-axis</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result" id="prism-result">Enter dimensions and magnetic properties for complete Stoner-Wohlfarth analysis</div>
+                        <div class="formula-source">
+                            <small style="color: #64748b; font-size: 0.75rem;">
+                                Formula source: <a href="https://doi.org/10.1063/1.367113" target="_blank" style="color: #6366f1; text-decoration: none;">A. Aharoni, J. Appl. Phys. 83, 3432–3434 (1998)</a>
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <div class="geometry-panel" id="sphere-panel">
+                        <div class="geometry-inputs">
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 400px; margin: 0 auto;">
+                                <div class="input-group">
+                                    <label for="sphere-diameter">Diameter [nm]:</label>
+                                    <input type="number" id="sphere-diameter" value="20" step="0.1" min="0.1" maxlength="10">
+                                    <small>Spherical particle diameter (isotropic)</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result" id="sphere-result">Enter diameter and magnetic properties for complete Stoner-Wohlfarth analysis</div>
+                    </div>
+
+                    <div class="geometry-panel" id="thin-film-panel">
+                        <div class="geometry-inputs">
+                            <div style="text-align: center; padding: 0px;">
+                                <div class="thin-film-info">
+                                    <h4 style="color: #6366f1; margin-top: 0px; margin-bottom: 10px;">Infinite Thin Film (2D Limit)</h4>
+                                    <p style="margin-bottom: 0px; color: #64748b;">
+                                        Thickness ≪ lateral dimensions
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result" id="thin-film-result">Theoretical limiting case for maximum shape anisotropy</div>
+                    </div>
+
+                    <div class="geometry-panel" id="infinite-rod-panel">
+                        <div class="geometry-inputs">
+                            <div style="text-align: center; padding: 0px;">
+                                <div class="infinite-rod-info">
+                                    <h4 style="color: #10b981; margin-bottom: 10px;">Infinite Rod (1D Limit)</h4>
+                                    <p style="margin-bottom: 0px; color: #64748b;">
+                                        Length ≫ diameter
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result" id="infinite-rod-result">Theoretical limiting case for intermediate shape anisotropy</div>
+                    </div>
+                </div>
+            </div>
+
+
+                </div>
+            </div>
+            </div>
+        
+        <footer>
+            <div>
+                <p style="margin: 0px 0 0 0; font-size: 0.8em; color: #6366f1; font-weight: 500;">
+                    Created by Afan • July 2025
+                </p>
+                <p style="margin: 8px 0 0 0; font-size: 0.8em; color: #64748b;">
+                    Questions, feedback, or suggestions? Email me at 
+                    <a href="mailto:ata159@sfu.ca" style="color: #6366f1; text-decoration: none; font-weight: 500;">ata159@sfu.ca</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module">
+        // Import and initialize the app
+        import './app.js';
+    </script>
+</body>
+</html>
