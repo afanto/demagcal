@@ -1,5 +1,7 @@
 # Demagcal - Demagnetization Factor Calculator
 
+🔗 **[Try the Live App](https://pnmdtools.phys.sfu.ca/demagcal/)**
+
 Web-based tool for calculating demagnetization factors and magnetic properties of nanostructures.
 
 ## Features
